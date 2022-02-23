@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve:frontend": "vue-cli-service serve",
-    "serve:backend": "nodemon ./server.js",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "serve:backend": "nodemon ./server.js",
+    "serve:frontend": "vue-cli-service serve"
   },
   "dependencies": {
     "axios": "^0.25.0",
@@ -14,11 +14,13 @@
     "cors": "^2.8.5",
     "express": "^4.17.2",
     "mysql": "^2.18.1",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-router": "^3.2.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-router": "~4.5.15",
     "@vue/cli-service": "~4.5.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",

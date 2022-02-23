@@ -37,7 +37,7 @@ export default {
     }
   },
   async mounted() {
-    const res = await this.$axios.get('/show');
+    const res = await this.$axios.get('/english/show');
     this.vocabs = res.data
 	},
 
@@ -54,7 +54,7 @@ export default {
       let targetValue = this.vocabs[index];
       const modifiedValue = event.target.value; 
       
-      this.$axios.put('/update/english', {
+      this.$axios.put('/english/update/english', {
         modifiedEnglish: modifiedValue,
         targetEnglish: targetValue.english,
       }).then(res => targetValue.unshift(res.data))
@@ -65,7 +65,7 @@ export default {
       let targetValue = this.vocabs[index];
       const modifiedValue = event.target.value; 
       
-      this.$axios.put('/update/japanese', {
+      this.$axios.put('/english/update/japanese', {
         modifiedJapanese: modifiedValue,
         targetJapanese: targetValue.japanese,
       }).then(res => targetValue.unshift(res.data))
@@ -75,12 +75,12 @@ export default {
     del(index){
       const targetVocab = this.vocabs[index];
       this.$axios
-      .delete('/delete', {data: targetVocab})
-      .then(() => {
-        // this.$router.go({path: this.$router.currentRoute.path, force: true})
-      })
+      .delete('/english/delete', {data: targetVocab})
       .then(() => {
         this.$router.push({path: '/delete'})
+      })
+      .then(() => {
+        this.$router.go({path: '/show', force: true})
       })
       .catch(error => {
         console.log(error)

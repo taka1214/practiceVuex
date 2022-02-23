@@ -1,17 +1,14 @@
 <template>
   <div id="app">
-    <AddVocab/>
-    <VocabList />
+    <router-link to="/show/english">English </router-link>
+    <router-link to="/show/italian">Italiano</router-link>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import VocabList from './components/VocabList.vue'
-import AddVocab from './components/AddVocab.vue'
 export default {
   components:{
-    VocabList,
-    AddVocab,
   },
 
 }
