@@ -2,14 +2,14 @@
 <div>
   <textarea 
     name="english" 
-    :value="enData"
-    @en="$emit('english', $event.target.value)"
+    :value="newWord.foreign"
+    @en="$emit('foreign', $event.target.value)"
     :class="{isShow: active}"
     @change="enChange"
     ></textarea>
   <textarea 
     name="japanese"
-    :value="jaData"
+    :value="newWord.japanese"
     @ja="$emit('japanese', $event.target.value)"
     :class="{isShow: active}"
     @change="jaChange"
@@ -18,7 +18,8 @@
   <button 
     @click="
       isActive(); 
-      $emit('fetch');" >編集</button>
+      $emit('fetch');
+      reload()" >編集</button>
 </div>
 
 </template>
@@ -42,14 +43,21 @@ export default {
   data(){
     return{
       active: true,
-      enData: this.english,
-      jaData: this.japanese,
+      newWord:{
+        foreign: this.english,
+        japanese: this.japanese,
+      }
     }
   },
   methods:{
     isActive(){
       this.active = !this.active;
     },
+    reload(){
+      if(this.active){
+        this.$router.go({path: this.$router.currentRoute.path, force: true})
+      }
+    }
   }
 }
 </script>

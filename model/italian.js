@@ -20,7 +20,6 @@ router
     const italian = req.body.targetItalian;
     connection.query("update italianVocabs set ? where italian = ?", [post, italian], (error, results) => {
       if (error) throw error;
-      // res.redirect('/')
     })
   })
   .put('/update/japanese', (req, res) => {
@@ -30,7 +29,6 @@ router
     const japanese = req.body.targetJapanese;
     connection.query("update italianVocabs set ? where japanese = ?", [post, japanese], (error, results) => {
       if (error) throw error;
-      // res.redirect('/')
     })
   })
   .delete('/delete', (req, res) => {
@@ -38,7 +36,6 @@ router
     connection.query('DELETE FROM italianVocabs WHERE id=?', id, (error, results, fields) => {
       if (error) throw error;
       res.redirect('/')
-      // location.reload()
     });
   })
   

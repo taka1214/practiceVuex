@@ -8,7 +8,7 @@
         <td @click="fetch(index)">
           <Textarea 
             :english="vocab.english" 
-            @en="english = $event"
+            @en="foreign = $event"
             :enChange="enModified"
 
             :japanese="vocab.japanese"
@@ -16,7 +16,7 @@
             :jaChange="jaModified"
           />
         </td>
-        <td><button @click="del(index)">削除</button></td>
+        <td><button @click="del(index);">削除</button></td>
       </tr>
     </tbody>
   </div>
@@ -57,7 +57,10 @@ export default {
       this.$axios.put('/english/update/english', {
         modifiedEnglish: modifiedValue,
         targetEnglish: targetValue.english,
-      }).then(res => targetValue.unshift(res.data))
+      })
+      .then((res) => {
+        console.log(`${res} is updated`)
+      })
       .catch(error => console.log(error))
     },
     jaModified(event){
@@ -68,26 +71,29 @@ export default {
       this.$axios.put('/english/update/japanese', {
         modifiedJapanese: modifiedValue,
         targetJapanese: targetValue.japanese,
-      }).then(res => targetValue.unshift(res.data))
+      }).then(res => console.log(`${res} is updated`))
       .catch(error => console.log(error))
     },
-
     del(index){
       const targetVocab = this.vocabs[index];
-      this.$axios
-      .delete('/english/delete', {data: targetVocab})
-      .then(() => {
-        this.$router.push({path: '/delete'})
-      })
-      .then(() => {
-        this.$router.go({path: '/show', force: true})
-      })
-      .catch(error => {
-        console.log(error)
-      })
-    }
-    
-    
+      const result = window.confirm("are you sure");
+      const reload = {
+        reload: this.$router.go({path: this.$router.currentRoute.path, force: true})
+      }
+      if(result){
+        this.$axios
+        .delete('/english/delete', {data: targetVocab})
+        .then((res) => {
+          console.log(`deleted ${res}`)
+          reload.reload;
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      } else {
+        reload.reload
+      }
+    },
   },
 }
 </script>
